@@ -1,5 +1,6 @@
 import tkinter as tk
 from cProfile import label
+from codeop import compile_command
 from tkinter import ttk, messagebox, Canvas, PhotoImage
 from PIL import Image, ImageTk
 import random
@@ -12,8 +13,7 @@ def menu():
     canvas = tk.Canvas(root,width=600,height=600,background='white')
     canvas.pack(fill = "both",expand = True)
 
-    canvas.create_text(100,10,fill="white",font="Times 20 italic bold",
-                        text="Click the bubbles that are multiples of two.")
+    canvas.create_text(100,10,fill="white",font="Times 20 italic bold",text="Click the bubbles that are multiples of two.")
     image = Image.open("Imagenes/Menu.jpg").resize((800,800))
     photo = ImageTk.PhotoImage(image)
     canvas.create_image(0,0,image = photo,anchor = "nw")
@@ -28,6 +28,11 @@ def menu():
 
 
 def juego_adivinar_numero():
+    root.destroy()
+    root2 = tk.Tk
+    canvas = tk.Canvas(root2,width=600,height=600)
+    canvas.pack(fill = "both",expand = True)
+
     intentos_restantes = 3
     numero_aleatorio = random.randint(0, 200)
     print("\nAdivina el número del 0 al 200")
@@ -50,6 +55,8 @@ def juego_adivinar_numero():
     print("Volviendo al menú principal...\n")
 
 def juego_traducir_palabras():
+    root.destroy()
+    root3 = tk.Tk()
     palabras_a_traducir = {
         "House": "Casa", "Tree": "Árbol", "Phone": "Teléfono", "Table": "Mesa",
         "Sky": "Cielo", "Sun": "Sol", "Moon": "Luna", "Book": "Libro",
@@ -77,7 +84,8 @@ def jugar(opcion_jugador, opcion_maquina):
     return tabla_resultados[opcion_jugador][opcion_maquina]
 
 def piedra_papel_tijera():
-    print("\n--- Piedra, Papel o Tijera ---")
+    root.destroy()
+    root4 = tk.Tk()
     while True:
         print("Opciones: Piedra, Papel, Tijera")
         opcion_jugador = input("Elige una opción: ").lower()
