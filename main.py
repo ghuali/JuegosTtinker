@@ -1,35 +1,31 @@
 import tkinter as tk
 from cProfile import label
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, Canvas, PhotoImage
 from PIL import Image, ImageTk
 import random
 import os
 
+from PIL.ImageOps import expand
 
-root = tk.Tk()
-root.resizable(False, False)
-root.title("Juegos varios")
 
-def piedra():
+def menu():
+    canvas = tk.Canvas(root,width=600,height=600,background='white')
+    canvas.pack(fill = "both",expand = True)
 
-    es_valido = False
+    canvas.create_text(100,10,fill="white",font="Times 20 italic bold",
+                        text="Click the bubbles that are multiples of two.")
+    image = Image.open("Imagenes/Menu.jpg").resize((800,800))
+    photo = ImageTk.PhotoImage(image)
+    canvas.create_image(0,0,image = photo,anchor = "nw")
+    boton1 = ttk.Button(root,text="piedra papel tijera", command=piedra_papel_tijera)
+    boton1.place(x=300,y=240,anchor = "center",width = 150)
+    boton2 = ttk.Button(root,text="adivinar numero", command=juego_adivinar_numero)
+    boton2.place(x=300, y=290, anchor="center",width = 150)
+    boton3 = ttk.Button(root,text="Traducir palabras",command=juego_traducir_palabras)
+    boton3.place(x=300, y=340, anchor="center",width = 150)
+    root.mainloop()
 
-    while not es_valido:
-        try:
-            seleccion_juego = int(input("Elige un juego (1-3): "))
-            if seleccion_juego == 1:
-                piedra_papel_tijera()
-                es_valido = True
-            elif seleccion_juego == 2:
-                juego_traducir_palabras()
-                es_valido = True
-            elif seleccion_juego == 3:
-                juego_adivinar_numero()
-                es_valido = True
-            else:
-                print("Opción no reconocida. Por favor, elige una opción válida.")
-        except ValueError:
-            print("Por favor, introduce un número válido.")
+
 
 def juego_adivinar_numero():
     intentos_restantes = 3
@@ -51,9 +47,7 @@ def juego_adivinar_numero():
                     print(f"Has perdido. El número era {numero_aleatorio}.")
         except ValueError:
             print("Por favor, introduce un número válido.")
-
     print("Volviendo al menú principal...\n")
-
 
 def juego_traducir_palabras():
     palabras_a_traducir = {
@@ -79,13 +73,6 @@ def juego_traducir_palabras():
 
     print(f"\nHas obtenido {puntuacion} puntos.\nVolviendo al menú principal...\n")
 
-
-tabla_resultados = {
-    "piedra": {"piedra": 2, "papel": 1, "tijera": 0},
-    "papel": {"piedra": 0, "papel": 2, "tijera": 1},
-    "tijera": {"piedra": 1, "papel": 0, "tijera": 2}
-}
-
 def jugar(opcion_jugador, opcion_maquina):
     return tabla_resultados[opcion_jugador][opcion_maquina]
 
@@ -110,9 +97,13 @@ def piedra_papel_tijera():
         else:
             print("Opción no reconocida. Por favor, elige nuevamente.")
 
-    print("Volviendo al menú principal...\n")
+root = tk.Tk()
+root.title("Juegos varios")
+tabla_resultados = {
+    "piedra": {"piedra": 2, "papel": 1, "tijera": 0},
+    "papel": {"piedra": 0, "papel": 2, "tijera": 1},
+    "tijera": {"piedra": 1, "papel": 0, "tijera": 2}
+}
 
 
-# Iniciar el programa
-if __name__ == "__main__":
-
+menu()
