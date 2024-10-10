@@ -10,26 +10,42 @@ from PIL.ImageOps import expand
 
 
 def menu():
+    root.title("Juegos varios")
+    root.resizable(width=False,height=False)
+    root.geometry("600x600")
     canvas = tk.Canvas(root,width=600,height=600,background='white')
     canvas.pack(fill = "both",expand = True)
 
-    canvas.create_text(100,10,fill="white",font="Times 20 italic bold",text="Click the bubbles that are multiples of two.")
-    image = Image.open("Imagenes/Menu.jpg").resize((800,800))
+
+    image = Image.open("Imagenes/Menu.jpg").resize((600,600))
     photo = ImageTk.PhotoImage(image)
     canvas.create_image(0,0,image = photo,anchor = "nw")
     boton1 = ttk.Button(root,text="piedra papel tijera", command=piedra_papel_tijera)
     boton1.place(x=300,y=240,anchor = "center",width = 150)
-    boton2 = ttk.Button(root,text="adivinar numero", command=juego_adivinar_numero)
+    boton2 = ttk.Button(root,text="adivinar numero", command=juego_adivinar_numero )
     boton2.place(x=300, y=290, anchor="center",width = 150)
     boton3 = ttk.Button(root,text="Traducir palabras",command=juego_traducir_palabras)
     boton3.place(x=300, y=340, anchor="center",width = 150)
+    boton4 = ttk.Button(root,text="Salir",command=root.destroy)
+    boton4.place(x=300, y = 380,anchor="center",width= 150)
+    canvas.create_text(300, 100, fill="white", font="Times 100 bold",
+                       text="Elige")
     root.mainloop()
 
 
 
 def juego_adivinar_numero():
     root.destroy()
-    root2 = tk.Tk
+    root2 = tk.Tk()
+    root2.resizable(width=False,height=False)
+    root2.title("Juego Adivinar numero")
+    root2.geometry("600x600")
+    canvas = tk.Canvas(root2, width=600, height=600, background='white')
+    canvas.pack(fill="both", expand=True)
+    image = Image.open("Imagenes/HaloPensar.jpg").resize((600, 400))
+    photo = ImageTk.PhotoImage(image)
+    canvas.create_image(0, 0, image=photo, anchor="nw")
+
     canvas = tk.Canvas(root2,width=600,height=600)
     canvas.pack(fill = "both",expand = True)
 
@@ -57,6 +73,18 @@ def juego_adivinar_numero():
 def juego_traducir_palabras():
     root.destroy()
     root3 = tk.Tk()
+    root3.resizable(width=False, height=False)
+    root3.title("Juego Traducir palabra")
+    root3.geometry("600x600")
+    canvas = tk.Canvas(root3, width=600, height=600, background='white')
+    canvas.pack(fill="both", expand=True)
+    image = Image.open("Imagenes/SolKyTalking.jpg.jpg").resize((600, 400))
+    photo = ImageTk.PhotoImage(image)
+    canvas.create_image(0, 0, image=photo, anchor="nw")
+
+    canvas = tk.Canvas(root3, width=600, height=600)
+    canvas.pack(fill="both", expand=True)
+
     palabras_a_traducir = {
         "House": "Casa", "Tree": "Árbol", "Phone": "Teléfono", "Table": "Mesa",
         "Sky": "Cielo", "Sun": "Sol", "Moon": "Luna", "Book": "Libro",
@@ -78,7 +106,9 @@ def juego_traducir_palabras():
         else:
             print(f"Incorrecto. La respuesta correcta era: {palabras_a_traducir[palabra_aleatoria]}")
 
-    print(f"\nHas obtenido {puntuacion} puntos.\nVolviendo al menú principal...\n")
+    print(f"\nHas obtenido {puntuacion} puntos.")
+
+    root3.mainloop()
 
 def jugar(opcion_jugador, opcion_maquina):
     return tabla_resultados[opcion_jugador][opcion_maquina]
@@ -106,7 +136,7 @@ def piedra_papel_tijera():
             print("Opción no reconocida. Por favor, elige nuevamente.")
 
 root = tk.Tk()
-root.title("Juegos varios")
+
 tabla_resultados = {
     "piedra": {"piedra": 2, "papel": 1, "tijera": 0},
     "papel": {"piedra": 0, "papel": 2, "tijera": 1},
